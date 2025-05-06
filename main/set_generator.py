@@ -5,7 +5,8 @@ cap = cv2.VideoCapture(0)
 face_id = input("\n Input ID ====>")
 count = 0
 while 1:
-    ret, img = cap.read()
+    img = cap.read() [1]
+    img = cv2.flip(img, 1)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = face_cascede.detectMultiScale(gray, 1.3, 5)
     for (x,y,w,h) in faces:
