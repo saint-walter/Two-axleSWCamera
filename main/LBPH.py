@@ -3,7 +3,6 @@ import serial
 import os
 import sys
 
-# Получение ID и Name из аргументов командной строки
 if len(sys.argv) < 3:
     print("Usage: python LBPH.py <id> <name>")
     sys.exit(1)
@@ -23,9 +22,8 @@ recognizer.read('model/trainer.yml')
 faceCascade = cv2.CascadeClassifier(os.path.abspath(os.path.join(current_dir, "..", "CascadeHaar", "haarcascade_frontalface_alt2.xml")))
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-# Статический массив имен
-names = ["Unknown"] * 100  # Максимум 100 записей, можно увеличить размер по необходимости
-names[user_id] = user_name  # Записываем имя в ячейку с индексом ID
+names = ["Unknown"] * 100
+names[user_id] = user_name
 
 cam = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -47,7 +45,7 @@ while True:
         id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
         print(confidence)
         if confidence < 40:
-            id_name = names[id]  # Получаем имя из статического массива
+            id_name = names[id]
             confidence = "  {0}%".format(round(100 - confidence))
             cv2.putText(img, str(confidence), (x + 5, y + h - 5), font, 1, (255, 255, 0), 1)
         else:
